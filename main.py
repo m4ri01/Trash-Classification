@@ -7,7 +7,7 @@ import numpy as np
 import json
 
 app = Flask(__name__,template_folder='template')
-model = load_model('model_sampah.h5')
+model = load_model('model_sampah_mobilenet.h5')
 label = {0:"Anorganik",1:"B3",2:"Organik"}
 
 def model_predict():
