@@ -24,15 +24,22 @@ def model_predict():
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return render_template('index_multiple.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
-        file = request.files['image']
-        file.save('static/uploaded_file.jpg')
-        result = model_predict()
-        return json.dumps(result)
+        # file = request.files['image']
+        files = request.files.getlist("images")
+        print(len(files))
+        results = []
+        for f in files:
+            # print(f)
+            f.save('static/uploaded_file.jpg')
+            result = model_predict()
+            results.append(result['result'])
+            # print(result)
+        return json.dumps({"result":results})
 
 
 if __name__ == '__main__':
